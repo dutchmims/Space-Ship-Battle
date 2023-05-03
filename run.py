@@ -8,4 +8,23 @@ ship_sizes = [5, 4, 3, 3, 2]
 # Create the game grid
 grid = [['~' for _ in range(grid_size)] for _ in range(grid_size)]
 
+# Place the ships randomly on the grid
+def place_ships():
+    for size in ship_sizes:
+        while True:
+            direction = random.choice(['horizontal', 'vertical'])
+            if direction == 'horizontal':
+                row = random.randint(0, grid_size - 1)
+                col = random.randint(0, grid_size - size)
+                if all(grid[row][col+i] == '~' for i in range(size)):
+                    for i in range(size):
+                        grid[row][col+i] = '#'
+                    break
+            else:  # direction == 'vertical'
+                row = random.randint(0, grid_size - size)
+                col = random.randint(0, grid_size - 1)
+                if all(grid[row+i][col] == '~' for i in range(size)):
+                    for i in range(size):
+                        grid[row+i][col] = '#'
+                    break
 
