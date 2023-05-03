@@ -1,3 +1,14 @@
+if __name__ == "__main__":
+  while True:
+    print("Welcome to Spaceship Battle")
+    print("")
+    print("")
+    print("")
+    print("Let's start with your name: ")
+    name = input()
+    print("Good luck, " +name+ ".")
+    introScene()
+
 import random
 
 # Set up the game
