@@ -38,4 +38,11 @@ def place_ships():
                     for i in range(size):
                         grid[row+i][col] = '#'
                     break
+                    
+# Function to print the grid
+def print_grid():
+    print('   ' + ' '.join(str(i) for i in range(grid_size)))
+    for i in range(grid_size):
+        print(str(i) + '  ' + ' '.join(grid[i]))
+
 
