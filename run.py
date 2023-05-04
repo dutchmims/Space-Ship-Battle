@@ -4,7 +4,7 @@ if __name__ == "__main__":
     print("")
     print("")
     print("")
-    print("Let's start with your name: ")
+    print("Pleae input you Spaceship name Captain: ")
     name = input()
     print("Good luck, " +name+ ".")
     introScene()
@@ -47,7 +47,7 @@ def print_grid():
 
 # Function to play the game
 def play_game():
-    print("Let's play Battleship!")
+    print("Let's play Space Ship Battle!")
     print_grid()
     attempts = 0
     while True:
@@ -65,7 +65,18 @@ def play_game():
             attempts += 1
             print_grid()
         else:
-            print("You've already tried that position!")
+            print("We are not based here, try different coordinates!")
+
+              if attempts == sum(ship_sizes):
+            print("Congratulations! You've hit and destroyed all the Space Ships!")
+            break
+
+# Start the game
+place_ships()
+play_game()
+
+
+
 
 
   
