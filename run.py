@@ -1,82 +1,71 @@
-import random
+#Random module for randomly accepting the values
+# ‘X’ indicates the spaceships hit
+# ‘-‘ indicates the hits missed
+from random import randint
 
-# Function to create an empty game board
-def create_board():
-    board = []
-    for _ in range(5):
-        row = ["O"] * 5
-        board.append(row)
-    return board
+Hidden_Pattern=[[' ']*8 for x in range(8)]
+Guess_Pattern=[[' ']*8 for x in range(8)]
 
-# Function to print the game board
+let_to_num={'A':0,'B':1,'C':2,'D':3,'E':4,'F':5,'G':6,'H':7}
+
 def print_board(board):
+    print(' A B C D E F G H')
+    print(' ***************')
+    row_num=1
     for row in board:
-        print(" ".join(row))
+        print("%d|%s|" % (row_num, "|".join(row)))
+        row_num +=1
 
-# Function to randomly place the ships on the board
-def place_ships(board):
-    ships = []
-    for _ in range(5):
-        ship_row = random.randint(0, 4)
-        ship_col = random.randint(0, 4)
-        ship = [ship_row, ship_col]
-        if ship not in ships:
-            ships.append(ship)
-            board[ship_row][ship_col] = "S"
+def get_ship_location():
+    #Enter the row number between 1 to 8
+    row=input('Please enter a spaceship row 1-8 ').upper()
+    while row not in '12345678':
+        print("Please enter a valid row ")
+        row=input('Please enter a spaceship row 1-8 ')
+    #Enter the Ship column from A TO H
+    column=input('Please enter a spaceship column A-H ').upper()
+    while column not in 'ABCDEFGH':
+        print("Please enter a valid column ")
+        column=input('Please enter a spaceship column A-H ')
+    return int(row)-1,let_to_num[column]
 
-# Function to get user's guess
-def get_guess():
-    while True:
-        try:
-            guess_row = int(input("Guess Row (0-4): "))
-            guess_col = int(input("Guess Col (0-4): "))
-            if guess_row < 0 or guess_row > 4 or guess_col < 0 or guess_col > 4:
-                print("Please enter a valid guess!")
-            else:
-                return guess_row, guess_col
-        except ValueError:
-            print("Please enter valid numbers for the guess!")
+#Function that creates the ships
+def create_ships(board):
+    for ship in range(5):
+        ship_r, ship_cl=randint(0,7), randint(0,7)
+        while board[ship_r][ship_cl] =='X':
+            ship_r, ship_cl = randint(0, 7), randint(0, 7)
+        board[ship_r][ship_cl] = 'X'
 
-# Function to check if the guess hit a ship
-def check_guess(guess, ships):
-    if guess in ships:
-        ships.remove(guess)
-        return True
+def count_hit_ships(board):
+    count=0
+    for row in board:
+        for column in row:
+            if column=='X':
+                count+=1
+    return count
+
+create_ships(Hidden_Pattern)
+#print_board(Hidden_Pattern)
+turns = 10
+while turns > 0:
+    print('Welcome to Spaceship Battle')
+    print_board(Guess_Pattern)
+    row,column =get_ship_location()
+    if Guess_Pattern[row][column] == '-':
+        print(' You already guessed that ')
+    elif Hidden_Pattern[row][column] =='X':
+        print(' Congratulations you have hit the Spaceship ')
+        Guess_Pattern[row][column] = 'X'
+        turns -= 1
     else:
-        return False
-
-# Function to play the game
-def play_game():
-    print("Welcome to Space Ship Battle!")
-    print("You have 10 attempts to destroy 5 Space Ships.")
-    print("Let's Go!")
-    print()
-    
-    player_board = create_board()
-    ships = []
-    place_ships(ships)
-    attempts = 10
-    while attempts > 0:
-        print("Attempts remaining:", attempts)
-        print_board(player_board)
-        print()
-        guess = get_guess()
-        if check_guess(guess, ships):
-            print("Congratulations! You hit a ship!")
-            if len(ships) == 0:
-                print("You sank all the ships! You win!")
-                break
-        else:
-            print("Oops! That was a miss!")
-        attempts -= 1
-        print()
-    
-    if attempts == 0 and len(ships) > 0:
-        print("Game Over! You ran out of attempts.")
-        print("The remaining ships were located at:")
-        for ship in ships:
-            print(ship[0], ship[1])
-
-# Run the game
-play_game()
-  
+        print('Sorry,You missed')
+        Guess_Pattern[row][column] = '-'
+        turns -= 1
+    if  count_hit_ships(Guess_Pattern) == 5:
+        print("Congratulations you have destroyed all the Spaceships ")
+        break
+    print(' You have ' +str(turns) + ' turns remaining ')
+    if turns == 0:
+        print('Game Over ')
+        break
