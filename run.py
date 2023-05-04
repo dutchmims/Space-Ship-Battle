@@ -1,14 +1,3 @@
-if __name__ == "__main__":
-  while True:
-    print("Welcome to Spaceship Battle")
-    print("")
-    print("")
-    print("")
-    print("Pleae input you Spaceship name Captain: ")
-    name = input()
-    print("Good luck, " +name+ ".")
-    introScene()
-
 import random
 
 # Set up the game
@@ -47,7 +36,12 @@ def print_grid():
 
 # Function to play the game
 def play_game():
-    print("Let's play Space Ship Battle!")
+    print("Welcome to Spaceship Battle")
+    print("Let's play Spaceship Battle!")
+    print("Pleae input your Spaceship Name Captain: ")
+    name = input()
+    print("Good luck, " +name+ ".")
+
     print_grid()
     attempts = 0
     while True:
@@ -67,7 +61,7 @@ def play_game():
         else:
             print("We are not based here, try different coordinates!")
 
-              if attempts == sum(ship_sizes):
+        if attempts == sum(ship_sizes):
             print("Congratulations! You've hit and destroyed all the Space Ships!")
             break
 
