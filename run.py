@@ -54,4 +54,18 @@ def play_game():
         row = int(input("Enter the row coordinate: "))
         col = int(input("Enter the column coordinate: "))
 
+        if grid[row][col] == '#':
+            print("Hit!")
+            grid[row][col] = 'X'
+            attempts += 1
+            print_grid()
+        elif grid[row][col] == '~':
+            print("Miss!")
+            grid[row][col] = 'O'
+            attempts += 1
+            print_grid()
+        else:
+            print("You've already tried that position!")
+
+
   
