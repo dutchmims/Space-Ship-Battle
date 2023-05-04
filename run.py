@@ -45,4 +45,13 @@ def print_grid():
     for i in range(grid_size):
         print(str(i) + '  ' + ' '.join(grid[i]))
 
+# Function to play the game
+def play_game():
+    print("Let's play Battleship!")
+    print_grid()
+    attempts = 0
+    while True:
+        row = int(input("Enter the row coordinate: "))
+        col = int(input("Enter the column coordinate: "))
 
+  
